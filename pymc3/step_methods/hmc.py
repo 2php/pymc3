@@ -97,7 +97,7 @@ class HamiltonianMC(ArrayStep):
         if var.dtype in discrete_types:
             return Competence.INCOMPATIBLE
         return Competence.COMPATIBLE
-            
+
 
 
 def bern(p):

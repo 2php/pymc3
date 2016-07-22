@@ -1,3 +1,4 @@
+import theano
 
 bool_types = set(['int8'])
 
@@ -17,9 +18,9 @@ continuous_types = float_types | complex_types
 discrete_types = bool_types | int_types
 
 default_type = {'discrete': 'int64',
-                'continuous': 'float64'}
+                'continuous': theano.config.floatX}
 
 
 def typefilter(vars, types):
     # Returns variables of type `types` from `vars`
-    return [v for v in vars if v.dtype in types] 
+    return [v for v in vars if v.dtype in types]

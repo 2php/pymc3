@@ -120,9 +120,10 @@ class Metropolis(ArrayStepShared):
                 q = (q0 + delta).astype(int)
             else:
                 delta[self.discrete] = round(delta[self.discrete], 0).astype(int)
-                q = q0 + delta
+                q = (q0 + delta)
         else:
-            q = q0 + delta
+            q0 = q0.astype(theano.config.floatX)
+            q = (q0 + delta).astype(theano.config.floatX)
 
         q_new = metrop_select(self.delta_logp(q, q0), q, q0)
 
@@ -181,7 +182,7 @@ def tune(scale, acc_rate):
 
 class BinaryMetropolis(ArrayStep):
     """Metropolis-Hastings optimized for binary variables
-    
+
     Parameters
     ----------
     vars : list
@@ -194,7 +195,7 @@ class BinaryMetropolis(ArrayStep):
         The frequency of tuning. Defaults to 100 iterations.
     model : PyMC Model
         Optional model for sampling step. Defaults to None (taken from context).
-    
+
     """
 
     def __init__(self, vars, scaling=1., tune=True, tune_interval=100, model=None):
